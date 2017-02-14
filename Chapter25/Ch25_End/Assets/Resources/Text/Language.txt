@@ -1,0 +1,14 @@
+{
+"Upgrade Success Title":"업그레이드 성공",
+"Upgrade Failed Title":"업그레이드 실패",
+"Upgrade Failed":"업그레이드를 실패하였습니다",
+"Max Level":"최대 레벨에 도달하였습니다",
+"Not Enouhg Diamond":"다이아몬드가 충분하지 않습니다",
+"Are you sure to upgrade":"업그레이드를 하시겠습니까?",
+"Diamonds are required":"{0}개의 다이아몬드가 필요합니다",
+"Health Upgrade Confirm":"체력을 업그레이드하시겠습니까?",
+"Damage Upgrade Confirm":"공격력을 업그레이드하시겠습니까?",
+"Defense Upgrade Confirm":"방어력을 업그레이드하시겠습니까?",
+"Speed Upgrade Confirm":"스피드를 업그레이드하시겠습니까?",
+"Upgrade Success":"업그레이드를 성공했습니다"
+}

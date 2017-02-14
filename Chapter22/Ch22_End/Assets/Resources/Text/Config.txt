@@ -1,0 +1,10 @@
+{
+"ios_ver":1.00,
+"aos_ver":1.00,
+"android":"/android.json",
+"iOS":"/ios.json",
+"ios_market":"https://itunes.apple.com/app/id9999999999?mt=8",
+"aos_market":"market://details?id=com.unity3d.action",
+"ios_config_url":"http://unity-cdn.azurewebsites.net/config_ios.txt",
+"aos_config_url":"http://unity-cdn.azurewebsites.net/config_aos.txt"
+}
