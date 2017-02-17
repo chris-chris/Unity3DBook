@@ -4,12 +4,12 @@ using System.Collections;
 public class EnemyMove : MonoBehaviour {
 	
 	Transform player;
-	NavMeshAgent nav;
+	UnityEngine.AI.NavMeshAgent nav;
 
 	void Awake () {
 		
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
-		nav = GetComponent <NavMeshAgent> ();
+		nav = GetComponent <UnityEngine.AI.NavMeshAgent> ();
 
 	}
 	

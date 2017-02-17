@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
 		startingHealth = UserSingleton.Instance.Health;
 		healthSlider.maxValue = startingHealth;
 		currentHealth = startingHealth;
+		healthSlider.value = currentHealth ;
 
 	}
 	

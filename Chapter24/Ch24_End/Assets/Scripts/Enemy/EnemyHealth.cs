@@ -48,7 +48,7 @@ public class EnemyHealth : MonoBehaviour {
 		collider.isTrigger = false;
 
 // 더이상 플레이어를 찾아 길찾기를 하지 않도록 NavMeshAgent를 비활성화시킵니다. 
-		GetComponent <NavMeshAgent> ().enabled = true;
+		GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = true;
 	}
 	
 // 데미지를 받았을 때 처리하는 함수입니다.
@@ -193,7 +193,7 @@ public class EnemyHealth : MonoBehaviour {
 		collider.isTrigger = true;
 		
 // 더이상 플레이어를 찾아 길찾기를 하지 않도록 NavMeshAgent를 비활성화시킵니다. 
-		GetComponent <NavMeshAgent> ().enabled = false;
+		GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
 		
 // 가라앉도록 플래그를 활성화 합니다.
 		isSinking = true;

@@ -2,9 +2,10 @@ using UnityEngine;
 using System.Collections;
 using Boomlagoon.JSON;
 using System;
-using Facebook;
+
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using Facebook.Unity;
 
 public class LoginController : MonoBehaviour {
 
