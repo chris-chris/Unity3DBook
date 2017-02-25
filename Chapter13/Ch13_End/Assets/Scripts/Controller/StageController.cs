@@ -19,12 +19,6 @@ public class StageController : MonoBehaviour {
 	void Start () {
 		// Instance 변수에 현재 클래스의 인스턴스를 설정합니다.
 		Instance = this;
-		// 다이얼로그 데이터를 하나 생성합니다. 제목하고 내용, 그리고 콜백함수를 매개변수로 전달합니다. 
-		DialogDataAlert alert = new DialogDataAlert("START", "Game Start!", delegate() {
-			Debug.Log ("OK Pressed");
-		});
-		// 생성한 Alert 다이얼로그 데이터를 DialogManager에 추가합니다.
-		DialogManager.Instance.Push(alert);
 
 	}
 	// StageController에서는 AddPoint() 함수로 유저가 획득한 포인트를 저장합니다.
@@ -38,19 +32,6 @@ public class StageController : MonoBehaviour {
 
 	public void FinishGame()
 	{
-		// DialogDataConfirm 클래스의 인스턴스를 생성합니다.
-		// 이때 제목(Title), 내용(Message), 콜백함수(delegate(bool yn))을 매개변수로 전달합니다.
-        DialogDataConfirm confirm = new DialogDataConfirm("Restart?", "Please press OK if you want to restart the game.", 
-			delegate(bool yn) {
-			if(yn) {
-				Debug.Log ("OK Pressed");
-				Application.LoadLevel (Application.loadedLevel);              
-			}else{
-				Debug.Log ("Cancel Pressed");
-				Application.Quit();
-			}
-		});
-		// 생성한 다이얼로그 데이터를 다이얼로그 매니저에게 전달합니다.
-		DialogManager.Instance.Push(confirm);
+		Application.LoadLevel (Application.loadedLevel);
 	}
 }
