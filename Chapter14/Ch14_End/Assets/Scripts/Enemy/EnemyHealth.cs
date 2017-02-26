@@ -82,7 +82,7 @@ public class EnemyHealth : MonoBehaviour {
 
 		transform.GetChild(0).GetComponent<BoxCollider>().isTrigger = true;
 		
-		GetComponent <NavMeshAgent> ().enabled = false;
+		GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
 		
 		GetComponent <Rigidbody> ().isKinematic = true;
 		

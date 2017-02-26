@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using Boomlagoon.JSON;
 using System.Collections.Generic;
 
 // 스테이지를 관리하는 콘트롤러입니다. 스테이지의 시작과 종료 시점에 스테이지의 시작과 마감을 처리합니다. 

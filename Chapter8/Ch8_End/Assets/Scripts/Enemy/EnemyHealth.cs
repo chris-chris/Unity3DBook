@@ -80,6 +80,9 @@ public class EnemyHealth : MonoBehaviour {
 	
 	void Death ()
 	{
+
+		StageController.Instance.AddPoint (10);
+
 		// The enemy is dead.
 		isDead = true;
 		
