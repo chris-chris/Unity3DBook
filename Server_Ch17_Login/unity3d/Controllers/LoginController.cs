@@ -7,7 +7,7 @@ namespace unity3d.Controllers
     public class LoginController : Controller
     {
         /*
-        URL     : /Login
+        URL     : /Login/Facebook
         Method  : POST
         Body    : 
         {

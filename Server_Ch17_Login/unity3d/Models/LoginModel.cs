@@ -27,7 +27,7 @@ namespace unity3d.Models
                     var command = new SqlCommand();
                     command.Connection = db;
                     command.Transaction = transaction;
-                    command.CommandText = @"USP_User_Login";
+                    command.CommandText = @"USP_User_Login_Chris";
                     command.CommandType = CommandType.StoredProcedure;
 
                     // 스토어드 프로시저에 전달할 파라미터를 정합니다.
