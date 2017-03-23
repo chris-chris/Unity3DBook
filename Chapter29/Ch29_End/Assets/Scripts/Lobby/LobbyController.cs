@@ -35,4 +35,9 @@ public class LobbyController : MonoBehaviour {
 
 	}
 
+	public void ClickDiaPlus()
+	{
+		NotificationCenter.Instance.Notify (NotificationCenter.Subject.ClickDiaPlus);
+	}
+
 }

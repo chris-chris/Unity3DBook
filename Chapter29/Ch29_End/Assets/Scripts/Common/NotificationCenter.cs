@@ -18,6 +18,7 @@ public class NotificationCenter
 	public enum Subject
 	{
 		PlayerData,
+		ClickDiaPlus,
 	}
 	
 	Dictionary<Subject, UpdateDelegator> _delegateMap;

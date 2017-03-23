@@ -18,9 +18,15 @@ public class TopBarController : MonoBehaviour {
 // 캐릭터의 정보가 변경되면 자신의 UpdatePlayerData()함수를 호출하도록 등록합니다.
 		NotificationCenter.Instance.Add(NotificationCenter.Subject.PlayerData,UpdatePlayerData);
 
+		NotificationCenter.Instance.Add (NotificationCenter.Subject.ClickDiaPlus, OnClickDiaPlus);
+
 // 2) 그리고 시작하자마자 먼저 UserSingleton에서 최신 캐릭터 정보를 화면에 반영하도록 
 // UpdatePlayerData() 함수를 호출합니다.
 		UpdatePlayerData();
+	}
+
+	void OnClickDiaPlus(){
+		txtName.text = "NEW NAME!!!";
 	}
 
 	void UpdatePlayerData()
