@@ -94,7 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-  spritePackingTag: Lobby
+  spritePackingTag: LobbyUI
   userData: 
   assetBundleName: 
   assetBundleVariant: 
