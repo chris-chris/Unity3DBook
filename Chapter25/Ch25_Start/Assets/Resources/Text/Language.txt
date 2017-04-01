@@ -1,0 +1,7 @@
+﻿{
+    "Upgrade Success":"업그레이드를 성공하였습니다.",
+    "Upgrade Failed":"업그레이드를 실패했습니다.",
+    "Max Level":"최대 레벨에 도달하였습니다.",
+    "Not Enough Diamond":"다이아몬드가 충분하지 않습니다.",
+    "Are you sure to upgrade":"업그레이드를 하시겠습니까?"
+}
