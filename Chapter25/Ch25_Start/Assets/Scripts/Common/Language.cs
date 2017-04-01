@@ -13,6 +13,7 @@ public class Language : MonoBehaviour {
 				_instance = container.AddComponent (typeof(Language)) as Language;
 				DontDestroyOnLoad (container);
 			}
+			return _instance;
 		}
 	}
 

@@ -151,16 +151,16 @@ public class LoginController : MonoBehaviour {
 		UserSingleton.Instance.Refresh(delegate() {
 			finished[2] = true;
 		});
+//
+//		RankSingleton.Instance.LoadTotalRank (delegate() {
+//			finished[3] = true;	
+//		});
+//
+//		RankSingleton.Instance.LoadFriendRank (delegate() {
+//			finished[4] = true;	
+//		});
 
-		RankSingleton.Instance.LoadTotalRank (delegate() {
-			finished[3] = true;	
-		});
-
-		RankSingleton.Instance.LoadFriendRank (delegate() {
-			finished[4] = true;	
-		});
-
-		while(!finished[2] || !finished[3] || !finished[4]){
+		while(!finished[2] ){
 			yield return new WaitForSeconds(0.1f);
 		}
 		LoadNextScene();

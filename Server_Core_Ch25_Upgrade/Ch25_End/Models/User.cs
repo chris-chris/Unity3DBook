@@ -24,13 +24,9 @@ namespace DotnetCoreServer.Models
         public int SpeedLevel;
         public int Level;
         public int Experience;
-        
-/*
-diamond, health, defense, damage,
-                        speed, health_level, defense_level, 
-                        damage_level, speed_level,
-                        level, experience, deleted
- */
+        public int ExpForNextLevel;
+        public int ExpAfterLastLevel;
+
 
     }
 }

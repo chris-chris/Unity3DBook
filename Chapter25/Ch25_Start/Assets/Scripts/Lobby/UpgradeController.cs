@@ -101,7 +101,7 @@ public class UpgradeController : MonoBehaviour {
 			{
 				// Alert Dialog
 				DialogDataAlert alert = new DialogDataAlert(Language.Instance.GetLanguage("Upgrade Failed Title"),
-				                                            Language.Instance.GetLanguage("Not Enouhg Diamond"), delegate() {
+				                                            Language.Instance.GetLanguage("Not Enough Diamond"), delegate() {
 					
 				});
 				DialogManager.Instance.Push(alert);
