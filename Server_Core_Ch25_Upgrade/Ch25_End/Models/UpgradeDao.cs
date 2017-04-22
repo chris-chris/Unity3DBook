@@ -23,24 +23,29 @@ namespace DotnetCoreServer.Models
             List<UpgradeData> list = new List<UpgradeData>();
             using (MySqlConnection conn = db.GetConnection())
             {   
+
+                conn.Open();
                 string query = String.Format(
                     "SELECT upgrade_type, upgrade_level, upgrade_amount, upgrade_cost FROM tb_upgrade_info");
 
                 Console.WriteLine(query);
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
+                using(MySqlCommand cmd = (MySqlCommand)conn.CreateCommand())
                 {
-                    while (reader.Read())
+                    cmd.CommandText = query;
+                    using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
                     {
-                        UpgradeData data = new UpgradeData();
-                        data.UpgradeType = reader.GetString(0);
-                        data.UpgradeLevel = reader.GetInt32(1);
-                        data.UpgradeAmount = reader.GetInt32(2);
-                        data.UpgradeCost = reader.GetInt32(3);
-                        list.Add(data);
+                        while (reader.Read())
+                        {
+                            UpgradeData data = new UpgradeData();
+                            data.UpgradeType = reader.GetString(0);
+                            data.UpgradeLevel = reader.GetInt32(1);
+                            data.UpgradeAmount = reader.GetInt32(2);
+                            data.UpgradeCost = reader.GetInt32(3);
+                            list.Add(data);
+                        }
                     }
                 }
-                conn.Close();
+                
             }
             
             return list;
@@ -51,6 +56,7 @@ namespace DotnetCoreServer.Models
             UpgradeData data = new UpgradeData();
             using (MySqlConnection conn = db.GetConnection())
             {   
+                conn.Open();
                 string query = String.Format(
                     @"
                     SELECT 
@@ -61,19 +67,22 @@ namespace DotnetCoreServer.Models
                     ", UpgradeType, UpgradeLevel);
 
                 Console.WriteLine(query);
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
+                using(MySqlCommand cmd = (MySqlCommand)conn.CreateCommand())
                 {
-                    if (reader.Read())
+                    cmd.CommandText = query;
+                    using (MySqlDataReader reader = (MySqlDataReader)cmd.ExecuteReader())
                     {
-                        data.UpgradeType = reader.GetString(0);
-                        data.UpgradeLevel = reader.GetInt32(1);
-                        data.UpgradeAmount = reader.GetInt32(2);
-                        data.UpgradeCost = reader.GetInt32(3);
-                        return data;
+                        if (reader.Read())
+                        {
+                            data.UpgradeType = reader.GetString(0);
+                            data.UpgradeLevel = reader.GetInt32(1);
+                            data.UpgradeAmount = reader.GetInt32(2);
+                            data.UpgradeCost = reader.GetInt32(3);
+                            return data;
+                        }
                     }
                 }
-                conn.Close();
+
             }
             
             return null;

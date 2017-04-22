@@ -21,7 +21,6 @@ public class DB : IDB
         {
             ConnectionString = this.ConnectionString
         };
-        connection.Open();
         return connection;
     }
 }

@@ -71,6 +71,8 @@ public class UpgradeController : MonoBehaviour {
 		JSONObject obj = new JSONObject();
 		obj.Add("UserID", UserSingleton.Instance.UserID);
 		obj.Add("UpgradeType", UpgradeType);
+		Debug.Log ("URL : " + Singleton.Instance.HOST + "/Upgrade/Execute");
+		Debug.Log ("DATA : " + obj.ToString ());
 		HTTPClient.Instance.POST(Singleton.Instance.HOST + "/Upgrade/Execute",obj.ToString(),delegate(WWW www) {
 			Debug.Log (www.text);
 			JSONObject res = JSONObject.Parse(www.text);
