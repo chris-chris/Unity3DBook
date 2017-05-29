@@ -18,7 +18,7 @@ namespace DotnetCoreServer.Controllers
 
         // POST UpdateResult/Post
         [HttpPost]
-        public ResultBase Post([FromBody] StageData request)
+        public ResultBase Post([FromBody] StageRequest request)
         {
 
             ResultBase result = new ResultBase();
