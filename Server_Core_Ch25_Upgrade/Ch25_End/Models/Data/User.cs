@@ -5,14 +5,14 @@ namespace DotnetCoreServer.Models
     public class User
     {
 
-        public long UserID { get; set; }
-        public string FacebookID { get; set; }
-        public string FacebookName { get; set; }
-        public string FacebookPhotoURL { get; set; }
-        public string FacebookAccessToken { get; set; }
-        public int Point { get; set;}
-        public string AccessToken { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public long UserID;
+        public string FacebookID;
+        public string FacebookName;
+        public string FacebookPhotoURL;
+        public string FacebookAccessToken;
+        public int Point;
+        public string AccessToken;
+        public DateTime CreatedAt;
         public int Diamond;
         public int Health;
         public int Defense;
