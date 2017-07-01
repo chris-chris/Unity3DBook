@@ -4,7 +4,7 @@ using System;
 namespace DotnetCoreServer.Models
 {
     public interface IUserDao{
-        User FindUserByFUID(string FacebookUserID);
+        User FindUserByFUID(string FacebookID);
         User GetUser(Int64 UserID);
         User InsertUser(User user);
         bool UpdateUser(User user);
@@ -18,13 +18,13 @@ namespace DotnetCoreServer.Models
             this.db = db;
         }
 
-        public User FindUserByFUID(string FacebookUserID){
+        public User FindUserByFUID(string FacebookID){
             User user = new User();
             using (MySqlConnection conn = db.GetConnection())
             {   
                 string query = String.Format(
                     "SELECT user_id, facebook_id, facebook_name, facebook_photo_url, point, created_at, access_token FROM tb_user WHERE facebook_id = '{0}'",
-                     FacebookUserID);
+                     FacebookID);
 
                 Console.WriteLine(query);
 
