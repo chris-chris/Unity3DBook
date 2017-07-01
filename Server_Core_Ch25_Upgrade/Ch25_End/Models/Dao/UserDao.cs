@@ -22,6 +22,7 @@ namespace DotnetCoreServer.Models
             User user = new User();
             using (MySqlConnection conn = db.GetConnection())
             {   
+                conn.Open();
                 string query = String.Format(
                     "SELECT user_id, facebook_id, facebook_name, facebook_photo_url, point, created_at, access_token FROM tb_user WHERE facebook_id = '{0}'",
                      FacebookID);
