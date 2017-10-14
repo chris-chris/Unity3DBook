@@ -170,13 +170,13 @@ public class LoginController : MonoBehaviour {
 
 		});
 
-		RankSingleton.Instance.LoadTotalRank (delegate {
+		RankSingleton.Instance.LoadTotalRank (delegate() {
 
 			finished[3] = true;
 
 		});
 
-		RankSingleton.Instance.LoadFriendRank (delegate {
+		RankSingleton.Instance.LoadFriendRank (delegate() {
 
 			finished[4] = true;
 
