@@ -5,7 +5,7 @@ using System;
 
 public class Singleton : MonoBehaviour {
 
-	public string HOST = "http://ec2-52-197-102-179.ap-northeast-1.compute.amazonaws.com";
+	public string HOST = "http://unity-chris.azurewebsites.net";
 	
 	//Singleton Member And Method
 	static Singleton _instance;

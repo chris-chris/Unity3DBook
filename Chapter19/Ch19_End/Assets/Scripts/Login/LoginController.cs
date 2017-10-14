@@ -185,7 +185,7 @@ public class LoginController : MonoBehaviour {
 			if(ResultCode == 1 || ResultCode == 2)
 			{
 				JSONObject Data = response.GetObject("Data");
-				UserSingleton.Instance.UserID = (long)Data["UserID"].Number;
+					UserSingleton.Instance.UserID = int.Parse(Data["UserID"].Number.ToString());
 				UserSingleton.Instance.AccessToken = Data["AccessToken"].Str;
 				StartCoroutine(LoadDataFromGameServer());
 			}else{ 
