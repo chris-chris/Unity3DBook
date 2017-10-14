@@ -91,6 +91,7 @@
      <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\Player\SkillTarget.cs" />
+     <Compile Include="Assets\Scripts\Ranking\RankSingleton.cs" />
      <Compile Include="Assets\Scripts\User\UserSingleton.cs" />
      <Compile Include="Assets\Sky FX Pack\Scripts\LightBeamsControlScript.cs" />
      <Compile Include="Assets\Sky FX Pack\Scripts\LookAtBehaviour.cs" />

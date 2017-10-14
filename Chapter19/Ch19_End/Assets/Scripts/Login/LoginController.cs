@@ -21,10 +21,15 @@ public class LoginController : MonoBehaviour {
 	 *
 	 * */
 
+	bool[] finished = new bool[10];
 
 	void Start () {
 
 		LoginInit();
+
+		for(int i = 0; i < finished.Length;i++){
+			finished[i] = false;
+		}
 
 	}
 
@@ -106,56 +111,17 @@ public class LoginController : MonoBehaviour {
 
 	public IEnumerator LoadDataFromFacebook()
 	{
-		bool[] finished = new bool[3];
-		for(int i = 0; i < finished.Length;i++){
-			finished[i] = false;
-		}
 
-		FB.API("/me", HttpMethod.GET, delegate(IGraphResult meResult) {
-			
+		UserSingleton.Instance.LoadFacebookMe (delegate(bool isSuccess, string response) {
+			finished[0] = true; 
+		});
 		
-			Debug.Log(meResult.RawResult);
 
-/*
-저자의 경우 오는 페이스북 개인정보
-
-{"id":"10204997009661738",
-"first_name":"Chris",
-"gender":"male",
-"last_name":"Song",
-"link":"https:\/\/www.facebook.com\/app_scoped_user_id\/10204997009661738\/",
-"locale":"ko_KR",
-"name":"Chris Song",
-"timezone":9,
-"updated_time":"2015-07-26T19:32:26+0000",
-"verified":true}
-			*/
-
-			JSONObject meObj = JSONObject.Parse(meResult.RawResult);
-			UserSingleton.Instance.Name = meObj["name"].Str;
-			finished[0] = true;
-
-		});
-
-// 페이스북 프로필 사진 가져오기 
-
-		FB.API("/me/picture?width=128&height=128&redirect=false", HttpMethod.GET, delegate(IGraphResult pictureResult){
-			Debug.Log(pictureResult.RawResult);
-			JSONObject pictureObj = JSONObject.Parse(pictureResult.RawResult);
-			UserSingleton.Instance.FacebookPhotoURL = pictureObj["data"].Obj["url"].Str;
-
+		UserSingleton.Instance.LoadFacebookFriend (delegate(bool isSuccess, string response) {  
 			finished[1] = true;
-
 		});
 
-// 페이스북 프로필 사진 가져오기 
-		FB.API("/friends", HttpMethod.GET, delegate(IGraphResult friendResult){
-			Debug.Log(friendResult.RawResult);
-
-			finished[2] = true;
-		});
-
-		while(!finished[0] || !finished[1] || !finished[2]){
+		while(!finished[0] || !finished[1] ){
 			yield return new WaitForSeconds(0.1f);
 		}
 
@@ -198,7 +164,28 @@ public class LoginController : MonoBehaviour {
 
 	public IEnumerator LoadDataFromGameServer()
 	{
-		yield return null;
+		UserSingleton.Instance.Refresh (delegate() {
+
+			finished[2] = true;
+
+		});
+
+		RankSingleton.Instance.LoadTotalRank (delegate {
+
+			finished[3] = true;
+
+		});
+
+		RankSingleton.Instance.LoadFriendRank (delegate {
+
+			finished[4] = true;
+
+		});
+
+		while (!finished [2] || !finished [3] || !finished [4]) {
+			yield return null;
+		}
+
 		LoadNextScene();
 	}
 

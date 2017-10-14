@@ -35,68 +35,19 @@ public class StageController : MonoBehaviour {
 	public void FinishGame()
 	{
 		JSONObject body = new JSONObject();
-		body.Add("UserID", "9876");
+		body.Add("UserID", UserSingleton.Instance.UserID);
 		body.Add("Point", StagePoint.ToString());
 		
 		HTTPClient.Instance.POST (
-			"http://unity-action.azurewebsites.net/UpdateResult",
+			Singleton.Instance.HOST + "/UpdateResult/Post",
 			body.ToString(),
 			delegate(WWW obj) {
 				JSONObject json = JSONObject.Parse(obj.text);
 				Debug.Log("Response is : " + json.ToString());
 
-				GetRanking();
+				Application.LoadLevel("Lobby");
 
 		    }
-		);
-
-	}
-	/*
-	private void SignIn(){
-
-		JSONObject body = new JSONObject();
-		body.Add("FacebookID", "9876");
-		body.Add("FacebookName", "Chris");
-		body.Add("FacebookPhotoURL", "http://www/1.jpg");
-		
-		HTTPClient.Instance.POST (
-			"http://unity-action.azurewebsites.net/Login",
-			body.ToString(),
-			delegate(WWW obj) {
-			JSONObject json = JSONObject.Parse(obj.text);
-			Debug.Log("Response is : " + json.ToString());
-		}
-		);
-
-	}*/
-
-	// Get Ranking list From server
-	private void GetRanking(){
-		HTTPClient.Instance.GET (
-			"http://unity-action.azurewebsites.net/Rank/1/50",
-			delegate(WWW obj) {
-				Debug.Log(obj.text);
-				// Dialog Push
-				JSONObject result = JSONObject.Parse(obj.text);
-				JSONArray jarr = result.GetArray("Data");
-			
-				string rankings = "";
-				for(int i=0;i<jarr.Length;i++){
-					rankings += jarr[i].Obj["Rank"] + ". " + jarr[i].Obj.GetString("FacebookName") + " \t\tscore :" + jarr[i].Obj["Point"] + "\n\n";
-				}
-				
-				DialogDataRanking ranking = new DialogDataRanking("Game Over", StagePoint, rankings, delegate(bool yn) {
-					if(yn)
-					{
-						Debug.Log ("OK Pressed");
-						Application.LoadLevel (Application.loadedLevel); // 
-					}else{
-						Debug.Log ("Cancel Pressed");
-						Application.Quit();
-					}
-				});
-				DialogManager.Instance.Push(ranking);
-			}
 		);
 
 	}
