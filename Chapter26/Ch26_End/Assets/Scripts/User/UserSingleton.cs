@@ -2,12 +2,14 @@
 using System.Collections;
 using System;
 using Boomlagoon.JSON;
+using Facebook.Unity;
 
 /*
 UserSingleton 클래스는 현재 유저의 개인 정보 및 능력치 정보를 메모리 상에 들고 있는 싱글톤 클래스입니다.
 서버로부터 /User/{유저아이디} API로 정보를 가져와서 여기에 저장합니다.
 */
 //using Facebook;
+using System.Collections.Generic;
 
 
 public class UserSingleton : MonoBehaviour {
@@ -109,45 +111,46 @@ public class UserSingleton : MonoBehaviour {
 	public void FacebookLogin(Action<bool, string> callback, int retryCount = 0)
 	{
 
-//		FB.Login("email",delegate(FBResult result) { 
-//
-//			if(result.Error != null && retryCount >= 3){
-//				Debug.LogError(result.Error);
-//
-//				callback(false, result.Error);
-//				return;
-//			}
-//
-//			if(result.Error != null){
-//				Debug.LogError(result.Error);
-//
-//				retryCount = retryCount + 1;
-//				FacebookLogin(callback, retryCount);
-//				return;
-//			}
-//
-//			Debug.Log(result.Text);
-//
-//			Debug.Log("FB Login Result: " + result.Text);
-//
-//
-//			// 페이스북 로그인 결과를 JSON 파싱합니다.
-//			JSONObject obj = JSONObject.Parse(result.Text);
-//			// 페이스북 로그인이 성공했는지 여부를 뜻하는 is_logged_in 변수 bool형
-//			bool is_logged_in = obj["is_logged_in"].Boolean;
-//
-//			// 페이스북 아이디를 UserSingleton에 저장합니다. 
-//			// 이 변수는 게임이 껏다 켜져도 유지되도록 환경변수에 저장하도록 구현되있습니다.
-//			UserSingleton.Instance.FacebookID = obj["user_id"].Str;
-//			UserSingleton.Instance.FacebookPhotoURL = "http://graph.facebook.com/" + UserSingleton.Instance.FacebookID + "/picture?type=square";
-//
-//			// 페이스북 액세스 토큰을 UserSingleton에 저장힙니다.
-//			// 이 변수 역시 게임이 껏다 켜져도 유지됩니다.
-//			UserSingleton.Instance.FacebookAccessToken = obj["access_token"].Str;
-//
-//			callback(true, result.Text);
-//
-//		});
+		FB.LogInWithReadPermissions(new List<string>() { "public_profile", "email", "user_friends" }
+			,delegate(ILoginResult result) { 
+
+			if(result.Error != null && retryCount >= 3){
+				Debug.LogError(result.Error);
+
+				callback(false, result.Error);
+				return;
+			}
+
+			if(result.Error != null){
+				Debug.LogError(result.Error);
+
+				retryCount = retryCount + 1;
+				FacebookLogin(callback, retryCount);
+				return;
+			}
+
+			Debug.Log(result.RawResult);
+
+			Debug.Log("FB Login Result: " + result.RawResult);
+
+
+			// 페이스북 로그인 결과를 JSON 파싱합니다.
+			JSONObject obj = JSONObject.Parse(result.RawResult);
+			// 페이스북 로그인이 성공했는지 여부를 뜻하는 is_logged_in 변수 bool형
+			// bool is_logged_in = obj["is_logged_in"].Boolean;
+
+			// 페이스북 아이디를 UserSingleton에 저장합니다. 
+			// 이 변수는 게임이 껏다 켜져도 유지되도록 환경변수에 저장하도록 구현되있습니다.
+			UserSingleton.Instance.FacebookID = obj["user_id"].Str;
+			UserSingleton.Instance.FacebookPhotoURL = "http://graph.facebook.com/" + UserSingleton.Instance.FacebookID + "/picture?type=square";
+
+			// 페이스북 액세스 토큰을 UserSingleton에 저장힙니다.
+			// 이 변수 역시 게임이 껏다 켜져도 유지됩니다.
+			UserSingleton.Instance.FacebookAccessToken = obj["access_token"].Str;
+
+				callback(true, result.RawResult);
+
+		});
 	}
 
 /*
@@ -172,31 +175,31 @@ public class UserSingleton : MonoBehaviour {
 	public void LoadFacebookMe(Action<bool, string> callback, int retryCount = 0)
 	{
 
-//		FB.API("/me", HttpMethod.GET, delegate(FBResult result){
-//			
-//			if(result.Error != null && retryCount >= 3){
-//				Debug.LogError(result.Error);
-//
-//				callback(false, result.Error);
-//				return;
-//			}
-//
-//			if(result.Error != null){
-//				Debug.LogError("Error occured, start retrying.. " + result.Error);
-//
-//				retryCount = retryCount + 1;
-//				LoadFacebookMe(callback, retryCount);
-//				return;
-//			}
-//
-//			Debug.Log(result.Text);
-//
-//			JSONObject meObj = JSONObject.Parse(result.Text);
-//			UserSingleton.Instance.Name = meObj["name"].Str;
-//
-//			callback(true, result.Text);
-//
-//		});
+		FB.API("/me", HttpMethod.GET, delegate(IGraphResult result) {
+			
+			if(result.Error != null && retryCount >= 3){
+				Debug.LogError(result.Error);
+
+				callback(false, result.Error);
+				return;
+			}
+
+			if(result.Error != null){
+				Debug.LogError("Error occured, start retrying.. " + result.Error);
+
+				retryCount = retryCount + 1;
+				LoadFacebookMe(callback, retryCount);
+				return;
+			}
+
+			Debug.Log(result.RawResult);
+
+			JSONObject meObj = JSONObject.Parse(result.RawResult);
+			UserSingleton.Instance.Name = meObj["name"].Str;
+
+			callback(true, result.RawResult);
+
+		});
 	}
 /*
 
@@ -211,11 +214,11 @@ public class UserSingleton : MonoBehaviour {
 }
 
 */
-	/*
+
 	public void LoadFacebookPicture(Action<bool, string> callback, int retryCount = 0)
 	{
 
-		FB.API("/me/picture?width=128&height=128&redirect=false", HttpMethod.GET, delegate(FBResult result){
+		FB.API("/me/picture?width=128&height=128&redirect=false", HttpMethod.GET, delegate(IGraphResult result){
 
 			if(result.Error != null && retryCount >= 3){
 				Debug.LogError(result.Error);
@@ -232,16 +235,16 @@ public class UserSingleton : MonoBehaviour {
 				return;
 			}
 
-			Debug.Log(result.Text);
+			Debug.Log(result.RawResult);
 
-			JSONObject pictureObj = JSONObject.Parse(result.Text);
+			JSONObject pictureObj = JSONObject.Parse(result.RawResult);
 			UserSingleton.Instance.FacebookPhotoURL = "http://graph.facebook.com/" + UserSingleton.Instance.FacebookID + "/picture?type=square";//pictureObj["data"].Obj["url"].Str;
 
-			callback(true, result.Text);
+			callback(true, result.RawResult);
 
 		});
 
-	}*/
+	}
 /*
 
 {
@@ -257,32 +260,32 @@ public class UserSingleton : MonoBehaviour {
 	public void LoadFacebookFriend(Action<bool, string> callback, int retryCount = 0)
 	{
 		
-//		FB.API("/me/friends", HttpMethod.GET, delegate(FBResult result){
-//
-//			if(result.Error != null && retryCount >= 3){
-//				Debug.LogError(result.Error);
-//
-//				callback(false, result.Error);
-//				return;
-//			}
-//
-//			if(result.Error != null){
-//				Debug.LogError("Error occured, start retrying.. " + result.Error);
-//
-//				retryCount = retryCount + 1;
-//				LoadFacebookFriend(callback, retryCount);
-//				return;
-//			}
-//
-//			Debug.Log(result.Text);
-//			JSONObject responseObj = JSONObject.Parse(result.Text);
-//			JSONArray array = responseObj["data"].Array;
-//
-//			UserSingleton.Instance.FriendList = array; 
-//
-//			callback(true, result.Text);
-//
-//		});
+		FB.API("/me/friends", HttpMethod.GET, delegate(IGraphResult result){
+
+			if(result.Error != null && retryCount >= 3){
+				Debug.LogError(result.Error);
+
+				callback(false, result.Error);
+				return;
+			}
+
+			if(result.Error != null){
+				Debug.LogError("Error occured, start retrying.. " + result.Error);
+
+				retryCount = retryCount + 1;
+				LoadFacebookFriend(callback, retryCount);
+				return;
+			}
+
+			Debug.Log(result.RawResult);
+			JSONObject responseObj = JSONObject.Parse(result.RawResult);
+			JSONArray array = responseObj["data"].Array;
+
+			UserSingleton.Instance.FriendList = array; 
+
+			callback(true, result.RawResult);
+
+		});
 
 	}
 
